@@ -2,16 +2,19 @@
 
 var my_news = [
 	{
-		author: 'Dodo Smith',
-		text: 'Shit happens...'
+		author: 'Саша Печкин',
+		text: 'В четверг, четвертого числа...',
+		bigText: 'в четыре с четвертью часа четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж.'
 	},
 	{
-		author: 'Just Basil',
-		text: 'I think $ should has price lower then 70 rubles!'
+		author: 'Просто Вася',
+		text: 'Считаю, что $ должен стоить 35 рублей!',
+		bigText: 'А евро 42!'
 	},
 	{
-		author: 'Guest',
-		text: 'Free! Download! The best site - http://localhost:3000!'
+		author: 'Гость',
+		text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000',
+		bigText: 'На самом деле платно, просто нужно прочитать очень длинное лицензионное соглашение'
 	}
 ];
 
@@ -20,18 +23,37 @@ var Article = React.createClass({
 	propTypes: {
 		data: React.PropTypes.shape({
 			author: React.PropTypes.string.isRequired,
-			text: React.PropTypes.string.isRequired
+			text: React.PropTypes.string.isRequired,
+			bigText: React.PropTypes.string.isRequired
 		})
+	},
+	
+	getInitialState: function() {
+		return {
+			visible: false
+		};
+	},
+	
+	readmoreClick: function(e) {
+		e.preventDefault();
+		this.setState({ visible: true });
 	},
 	
 	render: function() {
 		
 		var article = this.props.data;
+		var visible = this.state.visible;
 		
 		return (
 			<div className="article">
 				<p className="news__author">{ article.author }</p>
 				<p className="news__text">{ article.text }</p>
+				<a 
+					href="#" 
+					lassName={ "news__readmore " + (visible ? "none" : "")}
+					onClick={ this.readmoreClick }
+				>Подробнее...</a>
+				<p className={ "news__big-text " + (visible ? "" : "none")}>{ article.bigText }</p>
 			</div>
 		);
 	}
