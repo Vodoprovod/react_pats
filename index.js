@@ -36,7 +36,7 @@ var Article = React.createClass({
 	
 	readmoreClick: function(e) {
 		e.preventDefault();
-		this.setState({ visible: true });
+		this.setState({ visible: this.state.visible ? false : true });
 	},
 	
 	render: function() {
@@ -64,7 +64,7 @@ var News = React.createClass({
 	propTypes: {
 		data: React.PropTypes.array.isRequired
 	},
-	
+		
 	render: function() {
 		
 		var data = this.props.data;
@@ -85,7 +85,11 @@ var News = React.createClass({
 		return (
 			<div className="news">
 			{ newsTemplate }
-			<strong className={ 'news__count ' + (data.length > 0 ? '' : 'none') }>Всего новостей: { data.length }</strong>
+			<strong 
+				className={ 'news__count ' + (data.length > 0 ? '' : 'none') }
+			>
+				Всего новостей: { data.length }
+			</strong>
 			</div>
 		);
 	}
