@@ -108,7 +108,10 @@ var Add = React.createClass({
 	},
 		
 	onClickButtonHandler: function(e) {
-		e.preventDefault();		
+		e.preventDefault();	
+		var author = ReactDOM.findDOMNode(this.refs.author).value;
+		var text = ReactDOM.findDOMNode(this.refs.text).value;
+		alert(author + '\n' + text);
 	},
 	
 	onCheckRuleClick: function() {
