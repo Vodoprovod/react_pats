@@ -50,7 +50,7 @@ var Article = React.createClass({
 				<p className="news__text">{ article.text }</p>
 				<a 
 					href="#" 
-					lassName={ "news__readmore " + (visible ? "none" : "")}
+					className={ "news__readmore " + (visible ? "none" : "")}
 					onClick={ this.readmoreClick }
 				>Подробнее...</a>
 				<p className={ "news__big-text " + (visible ? "" : "none")}>{ article.bigText }</p>
@@ -96,9 +96,25 @@ var News = React.createClass({
 });
 
 var TestInput = React.createClass({
+		
+	onClickButtonHandler: function(e) {
+		console.log(this.refs);
+		alert(ReactDOM.findDOMNode(this.refs.myTestInput).value);
+	},
+	
 	render: function() {
 		return (
-			<input className="test-input" value="введите значение" />
+			<div>
+				<input 
+					className="test-input" 
+					defaultValue=''
+					placeholder='введите значение'
+					ref='myTestInput'
+				/>
+				<button 
+					onClick={ this.onClickButtonHandler }
+				>показать ввод</button>
+			</div>
 		);
 	}
 });
