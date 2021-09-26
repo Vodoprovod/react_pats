@@ -99,8 +99,18 @@ var Add = React.createClass({
 	
 	getInitialState: function() {
 		return {
-			btnIsDisabled: true
+			agreeNotChecked: true,
+			authorIsEmpty: true,
+			textIsEmpty: true
 		};
+	},
+		
+	onFieldChange: function(fieldName, e) {		
+		if (e.target.value.trim().length > 0) {
+			this.setState({ ['' + fieldName]: false })
+		} else {
+			this.setState({ ['' + fieldName]: true })
+		}
 	},
 	
 	componentDidMount: function() {
@@ -115,22 +125,27 @@ var Add = React.createClass({
 	},
 	
 	onCheckRuleClick: function() {
-		this.setState({ btnIsDisabled: !this.state.btnIsDisabled });
+		this.setState({ agreeNotChecked: !this.state.agreeNotChecked });
 	},
 	
 	render: function() {
+		
+		let agreeNotChecked = this.state.agreeNotChecked;
+		let authorIsEmpty = this.state.authorIsEmpty;
+		let textIsEmpty = this.state.textIsEmpty;
+		
 		return (
 			<form className='add cf'>
 				<input
 					type='text'
 					className='add__author' 
-					defaultValue=''
+					onChange={ this.onFieldChange.bind(this, 'authorIsEmpty') }
 					placeholder='Ваше имя'
 					ref='author'
 				/>
 				<textarea
 					className='add__text'
-					defaultValue=''
+					onChange={ this.onFieldChange.bind(this, 'textIsEmpty') }
 					placeholder='Текст новости'
 					ref='text'
 				></textarea>
@@ -146,7 +161,7 @@ var Add = React.createClass({
 					className='add__btn'
 					onClick={ this.onClickButtonHandler }
 					ref='alert_button'
-					disabled={ this.state.btnIsDisabled }
+					disabled={ agreeNotChecked || authorIsEmpty || textIsEmpty }
 				>
 					Показать ввод
 				</button>
